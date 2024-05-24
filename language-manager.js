@@ -26,7 +26,7 @@ function updateContent() {
 }
 
 window.i18next.init({
-    lng: 'it', // se stai usando un rilevatore di lingua, non definire l'opzione lng
+    lng: 'en', // if you are using a language detector do not initalize lng
     debug: true,
     resources: {
         en: {
