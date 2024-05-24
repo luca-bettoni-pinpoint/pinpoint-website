@@ -14,10 +14,34 @@ async function loadJSON(url) {
     }
 }
 
-let _enJsonUrl = "https://raw.githubusercontent.com/luca-bettoni-pinpoint/pinpoint-website-translations/main/pinpoint-web-en.json";
-let _itJsonUrl = "https://raw.githubusercontent.com/luca-bettoni-pinpoint/pinpoint-website-translations/main/pinpoint-web-it.json";
-let _enData = await loadJSON(_enJsonUrl);
-let _itData = await loadJSON(_itJsonUrl);
+async function initializeI18next() {
+    let _enJsonUrl = "https://raw.githubusercontent.com/luca-bettoni-pinpoint/pinpoint-website-translations/main/pinpoint-web-en.json";
+    let _itJsonUrl = "https://raw.githubusercontent.com/luca-bettoni-pinpoint/pinpoint-website-translations/main/pinpoint-web-it.json";
+    let _enData = await loadJSON(_enJsonUrl);
+    let _itData = await loadJSON(_itJsonUrl);
+
+    window.i18next.init({
+        lng: 'en', // Imposta la lingua predefinita su 'en' per inglese
+        debug: true,
+        resources: {
+            en: {
+                translation: _enData
+            },
+            it: {
+                translation: _itData
+            }
+        }
+    }).then(function (t) {
+        updateContent();
+        document.getElementById('btnEn').addEventListener('click', () => {
+            i18next.changeLanguage('en', updateContent);
+        });
+
+        document.getElementById('btnIt').addEventListener('click', () => {
+            i18next.changeLanguage('it', updateContent);
+        });
+    });
+}
 
 function updateContent() {
     document.querySelectorAll('[data-i18n]').forEach(function (element) {
@@ -25,24 +49,5 @@ function updateContent() {
     });
 }
 
-window.i18next.init({
-    lng: 'en', // if you are using a language detector do not initalize lng
-    debug: true,
-    resources: {
-        en: {
-            translation: _enData
-        },
-        it: {
-            translation: _itData
-        }
-    }
-}).then(function (t) {
-    updateContent();
-    document.getElementById('btnEn').addEventListener('click', () => {
-        i18next.changeLanguage('en', updateContent);
-    });
-
-    document.getElementById('btnIt').addEventListener('click', () => {
-        i18next.changeLanguage('it', updateContent);
-    });
-});
+// Inizializza i18next
+initializeI18next();
