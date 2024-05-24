@@ -33,12 +33,19 @@ async function initializeI18next() {
         }
     }).then(function (t) {
         updateContent();
+        updateActiveButton(i18next.language);
         document.getElementById('btnEn').addEventListener('click', () => {
-            i18next.changeLanguage('en', updateContent);
+            i18next.changeLanguage('en', () => {
+                updateContent();
+                updateActiveButton('en');
+            });
         });
 
         document.getElementById('btnIt').addEventListener('click', () => {
-            i18next.changeLanguage('it', updateContent);
+            i18next.changeLanguage('it', () => {
+                updateContent();
+                updateActiveButton('it');
+            });
         });
     });
 }
@@ -47,6 +54,11 @@ function updateContent() {
     document.querySelectorAll('[data-i18n]').forEach(function (element) {
         element.innerHTML = i18next.t(element.getAttribute('data-i18n'));
     });
+}
+
+function updateActiveButton(language) {
+    document.getElementById('btnEn').classList.toggle('active', language === 'en');
+    document.getElementById('btnIt').classList.toggle('active', language === 'it');
 }
 
 // Inizializza i18next
