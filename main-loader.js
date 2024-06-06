@@ -14,7 +14,7 @@ function loadJS(url) {
     document.head.appendChild(script);
 }
 
-loadCSS('./cross-style.css');
-loadJS('./language-manager.js');
+loadCSS('cross-style.css');
+loadJS('language-manager.js');
 
 
