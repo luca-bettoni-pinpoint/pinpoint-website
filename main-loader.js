@@ -14,7 +14,7 @@ function loadJS(url) {
     document.head.appendChild(script);
 }
 
-loadCSS("cross-style.css");
-loadJS("language-manager.js");
+loadCSS("https://cdn.jsdelivr.net/gh/luca-bettoni-pinpoint/pinpoint-website@main/cross-style.css");
+loadJS("https://cdn.jsdelivr.net/gh/luca-bettoni-pinpoint/pinpoint-website@main/language-manager.js");
 
 
